@@ -1,0 +1,56 @@
+CREATE TABLE STORE(
+CodiceStore INT NOT NULL,
+IndirizzoFisico VARCHAR(50),
+NumeroTelefono VARCHAR(30),
+CONSTRAINT PK_CodiceStore PRIMARY KEY (CodiceStore)
+);
+
+CREATE TABLE IMPIEGATO(
+CodiceFiscale VARCHAR(16) NOT NULL,
+Nome VARCHAR(50),
+TitoloStudio VARCHAR(50),
+Recapito VARCHAR(50),
+CONSTRAINT PK_CodiceFiscale PRIMARY KEY (CodiceFiscale)
+);
+
+CREATE TABLE GENERE(
+ID_Genere INT NOT NULL,
+Nome VARCHAR(50),
+CONSTRAINT PK_Genere PRIMARY KEY (ID_Genere)
+);
+
+CREATE TABLE VIDEOGIOCO(
+ID_VideoGioco INT NOT NULL,
+Titolo VARCHAR(50),
+Sviluppatore VARCHAR(50),
+AnnoDistribuzione YEAR,
+CostoAcquisto DECIMAL(10),
+ID_Genere INT,
+REMAKEDI VARCHAR(50),
+CONSTRAINT PK_Videogioco PRIMARY KEY (ID_VideoGioco)
+);
+CREATE TABLE SERVIZIO_IMPIEGATO(
+CodiceFiscale VARCHAR(16) NOT NULL,
+CodiceStore INT NOT NULL,
+DataInizio DATE,
+DataFine DATE,
+Carica VARCHAR(25),
+CONSTRAINT PK_Servizio PRIMARY KEY (CodiceFiscale,CodiceStore),
+CONSTRAINT FK_CodiceStore FOREIGN KEY (CodiceStore) REFERENCES STORE(CodiceStore),
+CONSTRAINT FK_CodiceFiscale FOREIGN KEY (CodiceFiscale) REFERENCES IMPIEGATO(CodiceFiscale)
+);
+
+CREATE TABLE COLLOCAZIONE_VIDEOGIOCO(
+ID_VideoGioco INT NOT NULL,
+CodiceStore INT NOT NULL,
+Quantita INT,
+CONSTRAINT PK_Collocazione PRIMARY KEY (ID_VideoGioco,CodiceStore),
+CONSTRAINT FK_CodiceStore_Videogioco FOREIGN KEY (CodiceStore) REFERENCES STORE(CodiceStore),
+CONSTRAINT FK_ID_VideoGioco FOREIGN KEY (ID_VideoGioco) REFERENCES VIDEOGIOCO(ID_VideoGioco)
+);
+
+
+
+
+
+
